@@ -3,18 +3,56 @@
 
 <!-- $Id$ -->
 
-<metaconfiguration><classes>
+<metaconfiguration>
+<classes>
 
 	<class name="User" type="final">
 		<properties>
 			<identifier name="id" />
-			<property name="username" type="String" size="32" required="true" />
+			<property name="surname" type="String" size="64" required="true" />
+			<property name="username" type="String" size="64" required="true" />
 			<property name="password" type="String" size="32" required="true" />
-			
+
 			<property name="email" type="String" size="128" required="true" />
 		</properties>
+		<pattern name="DictionaryClass" />
+	</class>
+	
+	<class name="Type" type="final">
+		<properties>
+			<identifier name="id" />
+			<!--property name="name" type="String" size="128" required="true" /-->
+			<property name="parent" type="Type" relation="OneToOne" required="false" />
+			<property name="left" type="integer" required="false" />
+			<property name="right" type="integer" required="false" />
+		</properties>
+		<pattern name="NamedTree" />
+	</class>
 
+	<class name="Item" type="final">
+		<properties>
+			<identifier name="id" />
+			<property name="name" type="String" size="128" required="true" />
+			<property name="description" type="String" size="512" required="false" />
+			<property name="type" type="Type" relation="OneToOne" required="false" />
+			<property name="price" type="numeric(20,2)" required="false" />
+			<property name="sale" type="Sale" relation="OneToOne" required="true" />
+		</properties>
 		<pattern name="DictionaryClass" />
 	</class>
 
-</classes></metaconfiguration>
+	<class name="Sale" type="final">
+		<properties>
+			<identifier name="id" />
+			<property name="name" type="String" size="128" required="true" />
+			<property name="description" type="String" size="512" required="false" />
+			<property name="user" type="User" relation="OneToOne" required="true" />
+			<property name="items" relation="OneToMany" type="Item" required="false" />
+		</properties>
+		<pattern name="DictionaryClass" />
+	</class>
+
+
+
+</classes>
+</metaconfiguration>
