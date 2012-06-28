@@ -23,7 +23,7 @@
 		<properties>
 			<identifier name="id" />
 			<property name="name" type="String" size="128" required="true" />
-			<property name="parent" type="Type" relation="OneToOne" required="false" />
+			<property name="parent" type="Type" relation="OneToOne" required="false" fetch="lazy" />
 			<property name="left" type="Integer" required="false" />
 			<property name="right" type="Integer" required="false" />
 		</properties>
@@ -37,7 +37,7 @@
 			<property name="description" type="String" size="512" required="false" />
 			<property name="type" type="Type" relation="OneToOne" required="false" />
 			<property name="price" type="Numeric" size="20,2" required="false" />
-			<property name="sale" type="Sale" relation="OneToOne" required="true" />
+			<property name="sale" type="Sale" relation="OneToOne" required="true" fetch="lazy" />
 		</properties>
 		<pattern name="DictionaryClass" />
 	</class>
@@ -47,7 +47,7 @@
 			<identifier name="id" />
 			<property name="name" type="String" size="128" required="true" />
 			<property name="description" type="String" size="512" required="false" />
-			<property name="user" type="User" relation="OneToOne" required="true" />
+			<property name="user" type="User" relation="OneToOne" required="true" fetch="lazy" />
 			<property name="items" relation="OneToMany" type="Item" required="false" />
 		</properties>
 		<pattern name="DictionaryClass" />
