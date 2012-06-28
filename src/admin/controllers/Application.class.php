@@ -53,10 +53,15 @@ final class Application
 				setDefault('main')
 			)->
 			import($request->getGet())->
-			importMore($request->getPost)->
+			importMore($request->getPost())->
 			getActualValue('area');
 		
+		if (!in_array($area, $this->allowedAreas))
+			throw new SecurityException('error:404');
+		
 		$request->setAttachedVar('area', $area);
+		
+		return $area;
 	}
 	
 	private function render(ModelAndView $mav, HttpRequest $request)
