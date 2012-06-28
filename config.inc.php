@@ -5,8 +5,9 @@
 	error_reporting(E_ALL | E_STRICT);
 	setlocale(LC_CTYPE, "ru_RU.UTF8");
 	setlocale(LC_TIME, "ru_RU.UTF8");
-	
-	defined('PATH_SOURCE_DIR') || define('PATH_SOURCE_DIR', 'user'.DIRECTORY_SEPARATOR);
+
+	defined('MODE') || define('MODE', 'user');
+	defined('PATH_SOURCE_DIR') || define('PATH_SOURCE_DIR', MODE.DIRECTORY_SEPARATOR);
 
 	// paths
 	define('PATH_BASE', dirname(__FILE__).DIRECTORY_SEPARATOR);
@@ -33,7 +34,7 @@
 	mb_regex_encoding(DEFAULT_ENCODING);
 	
 	DBPool::me()->setDefault(
-		DB::spawn('PgSQL', 'htonus', '', 'localhost', 'fm_pro')->
+		DB::spawn('PgSQL', 'htonus', '', 'localhost', 'onphp_pro')->
 		setEncoding(DEFAULT_ENCODING)
 	);
 	
@@ -57,7 +58,7 @@
 	define('BUGLOVERS', 'some.box@host.domain');
 
 	Cache::setPeer(
-		Memcached::create('localhost')
+		Memcached::create()
 	);
 	
 	Cache::setDefaultWorker('SmartDaoWorker');
