@@ -10,11 +10,11 @@
  *
  * @author htonus
  */
-final class controllerUser extends MethodMappedController
+final class controllerUser extends PrototypedEditor
 {
 	public function __construct()
 	{
-		
+		parent::__construct(User::create());
 		$this->
 			setMethodMappingList(
 				array(
@@ -36,5 +36,16 @@ final class controllerUser extends MethodMappedController
 			setModel($model);
 		
 		return $mav;
+	}
+	
+	protected function actionEdit(HttpRequest $request)
+	{
+		$this->getForm()->
+			import($request->getGet())->
+			importMore($request->getPost());
+		
+		if ($this->getForm()->getErrors()) {
+			
+		}
 	}
 }
