@@ -24,7 +24,7 @@ final class main extends MethodMappedController
 			setDefaultAction('index');
 	}
 	
-	public function index(HttpRequest $request)
+	public function actionIndex(HttpRequest $request)
 	{
 		$model = Model::create();
 		
@@ -32,10 +32,5 @@ final class main extends MethodMappedController
 			setModel($model);
 		
 		return $mav;
-	}
-
-	public function handleRequest(HttpRequest $request)
-	{
-		
 	}
 }

@@ -24,7 +24,7 @@
 	);
 	define('PATH_CONTROLLERS', PATH_SOURCE.'controllers'.DIRECTORY_SEPARATOR);
 	define('PATH_TEMPLATES', PATH_SOURCE.'views'.DIRECTORY_SEPARATOR);
-
+	
 	// onPHP init
 	require PATH_BASE.'../onphp/global.inc.php.tpl';
 	
@@ -32,6 +32,11 @@
 	define('DEFAULT_ENCODING', 'UTF-8');
 	mb_internal_encoding(DEFAULT_ENCODING);
 	mb_regex_encoding(DEFAULT_ENCODING);
+	
+	
+	define('DEFAULT_AREA', 'main');
+	
+	
 	
 	DBPool::me()->setDefault(
 		DB::spawn('PgSQL', 'htonus', '', 'localhost', 'onphp_pro')->

@@ -16,6 +16,11 @@ final class Application
 		'main'
 	);
 	
+	public static function create()
+	{
+		return new self;
+	}
+	
 	public function run()
 	{
 		if (!Session::isStarted())
@@ -31,8 +36,9 @@ final class Application
 		
 		$area = $this->getArea($request);
 		
-		switch (area) {
+		switch ($area) {
 			case 'main':
+			default:
 				$chain = new $area();
 				break;
 		}
@@ -50,7 +56,7 @@ final class Application
 			add(
 				Primitive::string('area')->
 				addImportFilter(Filter::trim())->
-				setDefault('main')
+				setDefault(DEFAULT_AREA)
 			)->
 			import($request->getGet())->
 			importMore($request->getPost())->
@@ -83,12 +89,12 @@ final class Application
 		}
 		
 		if (is_string($view)) {
-			$view = $resolver->resolve($view);
+			$view = $resolver->resolveViewName($view);
 		}
 		
 		if ($view instanceof View) {
 			$model->set('area', $request->getAttachedVar('area'));
-			$model->set('action', $request->getAttachedVar('action'));
+//			$model->set('action', $request->getAttachedVar('action'));
 			
 			$view->render($model);
 		}
