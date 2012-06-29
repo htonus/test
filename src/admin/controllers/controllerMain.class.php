@@ -10,7 +10,7 @@
  *
  * @author htonus
  */
-final class main extends MethodMappedController
+final class controllerMain extends MethodMappedController
 {
 	public function __construct()
 	{

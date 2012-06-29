@@ -35,11 +35,12 @@ final class Application
 			setSession($_SESSION);
 		
 		$area = $this->getArea($request);
+		$controller = 'controller'.ucfirst($area);
 		
 		switch ($area) {
 			case 'main':
 			default:
-				$chain = new $area();
+				$chain = new $controller;
 				break;
 		}
 		
@@ -81,11 +82,12 @@ final class Application
 		
 		$resolver = $request->getAttachedVar('resolver');
 		
-		if (
-			empty($view)
-			&& $request->hasAttachedVar('area')
-		) {
-			$view = $request->getAttachedVar('area');
+		if (empty($view)) {
+			$view = $request->hasAttachedVar('layout')
+				? $request->getAttachedVar('layout')
+				: $request->getAttachedVar('area');
+			
+			$model->set('layout', $view);
 		}
 		
 		if (is_string($view)) {
@@ -94,6 +96,7 @@ final class Application
 		
 		if ($view instanceof View) {
 			$model->set('area', $request->getAttachedVar('area'));
+			
 //			$model->set('action', $request->getAttachedVar('action'));
 			
 			$view->render($model);
